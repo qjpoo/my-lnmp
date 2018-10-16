@@ -10,7 +10,7 @@
 6. 支持**HTTPS和HTTP/2**
 
 ## 项目结构
-```text
+```
 ├── Dockerfile-php                          #PHP镜像构建文件
 ├── Dockerfile-redis                        #Redis镜像构建文件
 ├── conf                                    #默认服务配置文件
@@ -59,22 +59,22 @@
 2. 修改`conf_use/nginx/php-fpm.conf`中`fastcgi_pass`参数
 
 例如，示例的localhost用的是PHP7.2
-```text
+```
 fastcgi_pass  php72:9000;
 ```
 要改用PHP5.6，修改为：
-```text
+```
 fastcgi_pass  php56:9000;
 ```
 再重启Nginx
-```text
+```
 docker exec -it docker-lnmp_nginx_1 nginx -s reload
 ```
 
 ## 新建站点
 1. 在`conf_use/nginx/vhost`目录下添加你的站点配置
 例如：
-```text
+```
 server {
     listen       80;
     server_name  localhost;
@@ -97,11 +97,11 @@ server {
 }
 ```
 2. 修改`conf_use/hosts`文件，添加域名IP解析
-```text
+```
 127.0.0.1 localhost
 ```
 3. 重启Nginx
-```text
+```
 docker exec -it docker-lnmp_nginx_1 nginx -s reload
 ```
 
@@ -109,7 +109,7 @@ docker exec -it docker-lnmp_nginx_1 nginx -s reload
 在开发的时候，我们可能经常使用docker exec -it切换到容器中或者重启Nginx，把常用的做成命令别名是个省事的方法。
 
 Mac电脑打开~/.bash_profile,在最后添加一下命令别名
-```text
+```
 alias drnginx='docker exec -it docker-lnmp_nginx_1 nginx -s reload'
 alias dcnginx='docker exec -it dnmp_nginx_1 /bin/sh'
 alias dcphp72='docker exec -it dnmp_php72_1 /bin/bash'
@@ -118,14 +118,14 @@ alias dcmysql='docker exec -it dnmp_mysql_1 /bin/bash'
 alias dcredis='docker exec -it dnmp_redis_1 /bin/bash'
 ```
 在执行以下命令
-```text
+```
 source ~/.bash_profile
 yanghui@yanghuideMacBook-Pro:~$     dcphp56
 root@7da24dca11c5:/var/www/html#
 ```
 ## 其他问题
 #### 1、PHP-FPM重启通过重启容器来实现
-```text
+```
 docker restart {容器ID}
 ```
 #### 2、PHP安装新的扩展
@@ -133,14 +133,14 @@ docker restart {容器ID}
 
 1. 通过PECL安装
 例如安装`memcached`扩展，在`Dockerfile-php`配置安装扩展命令后面加下如下参数
-```text
+```
 && pecl install memcached-2.2.0 \
 && docker-php-ext-enable memcached
 ```
 2. 通过源码编译安装
 
 例如安装`redis`扩展，下载源码放置在`exts`目录，添加编译命令到`install.sh`文件
-```text
+```
 cd /tmp/exts \
 && mkdir redis \
 && tar -xf redis-4.1.1.tgz -C redis --strip-components=1 \
@@ -148,11 +148,11 @@ cd /tmp/exts \
 && docker-php-ext-enable redis
 ```
 3. 重新构建镜像
-```text
+```
 docker-compose build 
 ```
 #### 3、Nginx容器如何批量映射端口号
-```text
+```
 ports:
   - "80:80"
   - "443:443"
