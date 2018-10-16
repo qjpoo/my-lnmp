@@ -1,13 +1,13 @@
 ## 简介
-本项目是基于Docker的LNMP开发环境一键安装项目。便于前后端快速部署环境，更加专注业务功能开发。
+本项目是基于Docker-LNMP的一键安装开发环境。便于前后端快速部署环境，更加专注业务功能开发，减少环境配置带来的困扰。
 
 ## 特性
-1.支持支持**多版本PHP**共存，可任意切换（PHP5.6、PHP7.2)
-2.集中管理Nginx,PHP、Mysql、Redis配置文件
-3.集中管理Nginx,PHP、Mysql日志文件
-4.优化Nginx配置参数管理
-5.默认安装了Phalcon,Swoole,Redis,Xdebug项目依赖扩展
-6.支持**HTTPS和HTTP/2**
+1. 支持支持**多版本PHP**共存，可任意切换（PHP5.6、PHP7.2)
+2. 集中管理Nginx,PHP、Mysql、Redis配置文件
+3. 集中管理Nginx,PHP、Mysql日志文件
+4. 优化Nginx配置参数管理
+5. 默认安装了Phalcon,Swoole,Redis,Xdebug项目依赖扩展
+6. 支持**HTTPS和HTTP/2**
 
 ## 项目结构
 ```text
@@ -42,8 +42,8 @@
 ```
 
 ## 快速使用
-1、本地需要安装`docker`和`docker-compose`，教程参考[http://https://docs.docker.com/engine/installation/](官方安装指南)
-2、启动
+1. 本地需要安装`docker`和`docker-compose`，教程参考[http://https://docs.docker.com/engine/installation/](官方安装指南)
+2. 启动
 
     ```
     $ cd docker-lnmp
@@ -52,11 +52,11 @@
     $ ./copy_conf
     $ docker-compose up
     ```
-3、然后在浏览器中访问[http://localhost](http://localhost)
+3. 然后在浏览器中访问[http://localhost](http://localhost)
 
 ## 切换PHP版本
-1、确认`docker-compose.yml`配置中已经将PHP`php56`,`php72`已经开启
-2、修改`conf_use/nginx/php-fpm.conf`中`fastcgi_pass`参数
+1. 确认`docker-compose.yml`配置中已经将PHP`php56`,`php72`已经开启
+2. 修改`conf_use/nginx/php-fpm.conf`中`fastcgi_pass`参数
 例如，示例的localhost用的是PHP7.2
 ```text
 fastcgi_pass  php72:9000;
@@ -71,7 +71,7 @@ docker exec -it docker-lnmp_nginx_1 nginx -s reload
 ```
 
 ## 新建站点
-1、在`conf_use/nginx/vhost`目下添加你的站点配置
+1. 在`conf_use/nginx/vhost`目下添加你的站点配置
 例如：
 ```text
 server {
@@ -95,11 +95,11 @@ server {
 
 }
 ```
-2、修改`conf_use/hosts`文件，添加域名IP解析
+2. 修改`conf_use/hosts`文件，添加域名IP解析
 ```text
 127.0.0.1 localhost
 ```
-3、重启Nginx
+3. 重启Nginx
 ```text
 docker exec -it docker-lnmp_nginx_1 nginx -s reload
 ```
@@ -128,13 +128,13 @@ docker restart {容器ID}
 ```
 #### 2、PHP安装新的扩展
 扩展有两种方式安装：源码编译和PECL安装
-1、通过PECL安装
+1. 通过PECL安装
 例如安装`memcached`扩展，在`Dockerfile-php`配置安装扩展命令后面加下如下参数
 ```text
     && pecl install memcached-2.2.0 \
     && docker-php-ext-enable memcached
 ```
-2、通过源码编译安装
+2. 通过源码编译安装
 例如安装`redis`扩展，下载源码放置在`exts`目录，添加编译命令到`install.sh`文件
 ```text
 cd /tmp/exts \
@@ -143,7 +143,7 @@ cd /tmp/exts \
 && ( cd redis && phpize && ./configure && make && make install ) \
 && docker-php-ext-enable redis
 ```
-3、重新构建镜像
+3. 重新构建镜像
 ```text
 docker-compose build 
 ```
