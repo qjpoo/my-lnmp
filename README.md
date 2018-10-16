@@ -59,14 +59,19 @@
 2. 修改`conf_use/nginx/php-fpm.conf`中`fastcgi_pass`参数
 
 例如，示例的localhost用的是PHP7.2
+
 ```
 fastcgi_pass  php72:9000;
 ```
+
 要改用PHP5.6，修改为：
+
 ```
 fastcgi_pass  php56:9000;
 ```
+
 再重启Nginx
+
 ```
 docker exec -it docker-lnmp_nginx_1 nginx -s reload
 ```
@@ -74,6 +79,7 @@ docker exec -it docker-lnmp_nginx_1 nginx -s reload
 ## 新建站点
 1. 在`conf_use/nginx/vhost`目录下添加你的站点配置
 例如：
+
 ```
 server {
     listen       80;
@@ -96,11 +102,15 @@ server {
 
 }
 ```
+
 2. 修改`conf_use/hosts`文件，添加域名IP解析
+
 ```
 127.0.0.1 localhost
 ```
+
 3. 重启Nginx
+
 ```
     docker exec -it docker-lnmp_nginx_1 nginx -s reload
 ```
@@ -119,7 +129,6 @@ Mac电脑打开~/.bash_profile,在最后添加一下命令别名
     
    
 在执行以下命令
-
     
     source ~/.bash_profile
     yanghui@yanghuideMacBook-Pro:~$     dcphp56
@@ -127,21 +136,26 @@ Mac电脑打开~/.bash_profile,在最后添加一下命令别名
     
 ## 其他问题
 #### 1、PHP-FPM重启通过重启容器来实现
+
 ```
 docker restart {容器ID}
 ```
+
 #### 2、PHP安装新的扩展
 扩展有两种方式安装：源码编译和PECL安装
 
 1. 通过PECL安装
 例如安装`memcached`扩展，在`Dockerfile-php`配置安装扩展命令后面加下如下参数
+
 ```
 && pecl install memcached-2.2.0 \
 && docker-php-ext-enable memcached
 ```
+
 2. 通过源码编译安装
 
 例如安装`redis`扩展，下载源码放置在`exts`目录，添加编译命令到`install.sh`文件
+
 ```
 cd /tmp/exts \
 && mkdir redis \
@@ -150,14 +164,18 @@ cd /tmp/exts \
 && docker-php-ext-enable redis
 ```
 3. 重新构建镜像
+
 ```
 docker-compose build 
 ```
+
 #### 3、Nginx容器如何批量映射端口号
+
 ```
 ports:
   - "80:80"
   - "443:443"
   - "8200-9000:8200-9000"
 ```
+
 端口设置[官方文档](https://docs.docker.com/compose/compose-file/#ports)
