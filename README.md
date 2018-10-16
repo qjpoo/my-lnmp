@@ -179,3 +179,10 @@ ports:
 ```
 
 端口设置[官方文档](https://docs.docker.com/compose/compose-file/#ports)
+
+#### 4、配置Docker加速器
+阿里云加速器：每个人有对应的加速地址，访问 https://dev.aliyun.com ->【管理中心】-> 【DockerHub 镜像站点】配置加速器
+
+DaoCloud 加速器：http://guide.daocloud.io/dcs/daocloud-9153151.html
+
+腾讯云加速器：https://www.qcloud.com/document/product/457/7207
