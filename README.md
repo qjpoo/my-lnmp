@@ -121,11 +121,11 @@ server {
 Mac电脑打开~/.bash_profile,在最后添加一下命令别名
 
     alias drnginx='docker exec -it docker-lnmp_nginx_1 nginx -s reload'
-    alias dcnginx='docker exec -it dnmp_nginx_1 /bin/sh'
-    alias dcphp72='docker exec -it dnmp_php72_1 /bin/bash'
-    alias dcphp56='docker exec -it dnmp_php56_1 /bin/bash'
-    alias dcmysql='docker exec -it dnmp_mysql_1 /bin/bash'
-    alias dcredis='docker exec -it dnmp_redis_1 /bin/bash'
+    alias dcnginx='docker exec -it docker-lnmp_nginx_1 /bin/sh'
+    alias dcphp72='docker exec -it docker-lnmp_php72_1 /bin/bash'
+    alias dcphp56='docker exec -it docker-lnmp_php56_1 /bin/bash'
+    alias dcmysql='docker exec -it docker-lnmp_mysql_1 /bin/bash'
+    alias dcredis='docker exec -it docker-lnmp_redis_1 /bin/bash'
     
    
 在执行以下命令
