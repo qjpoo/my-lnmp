@@ -1,5 +1,5 @@
 ## 简介
-本项目是基于Docker-LNMP的一键安装开发环境。便于前后端快速部署环境，更加专注业务功能开发，减少环境配置带来的困扰。
+本项目是基于Docker-LNMP的一键开发环境安装。便于前后端快速部署环境，更加专注业务功能开发，减少环境配置带来的困扰。
 
 ## 特性
 1. 支持支持**多版本PHP**共存，可任意切换（PHP5.6、PHP7.2)
@@ -11,38 +11,38 @@
 
 ## 项目结构
 ```text
-├── Dockerfile-php 							#PHP镜像构建文件
-├── Dockerfile-redis						#Redis镜像构建文件
-├── conf 									#默认服务配置文件
-│   ├── hosts								#Host配置，同步到PHP和Nginx容器
-│   ├── mysql.conf 						    #mysql配置
-│   ├── nginx 								#Nginx相关配置
-│   │   ├── nginx.conf 						#Nginx默认配置文件
-│   │   ├── phalcon-admin-rewrite.conf 		#Phalcon后台项目路由重写规则
-│   │   ├── phalcon-admin.conf 				#Phalcon后台项目规则
-│   │   ├── phalcon-rewrite.conf            #Phalcon接口项目路由重写规则
-│   │   ├── phalcon.conf 					#Phalcon接口项目规则
-│   │   ├── php-fpm.conf 					#PHP-FPM参数配置
-│   │   └── vhost 							#Nginx虚拟机配置
-│   ├── php-fpm.conf 						#PHP-FPM配置文件（部分会覆盖php.ini配置）
-│   ├── php.ini 							#PHP默认配置文件
-│   └── redis.conf 							#Redis默认配置文件
-├── conf_use 								#开发人员本地服务配置副本
-├── copy_conf								#服务配置拷贝脚本
-├── data 									#服务数据目录
-│   ├── mysql
-│   └── redis
-├── docker-compose.yml 						#docker-compose启动配置
-├── exts									#PHP扩展包
-│   ├── install.sh 							#PHP扩展安装脚本
-├── log 									#日志目录
-├── sources.list 							#Debian源目录
-└── www										#项目代码目录
+├── Dockerfile-php                          #PHP镜像构建文件
+├── Dockerfile-redis                        #Redis镜像构建文件
+├── conf                                    #默认服务配置文件
+│   ├── hosts                               #Host配置，同步到PHP和Nginx容器
+│   ├── mysql.conf                          #mysql配置
+│   ├── nginx                               #Nginx相关配置
+│   │   ├── nginx.conf                      #Nginx默认配置文件
+│   │   ├── phalcon-admin-rewrite.conf      #Phalcon后台项目路由重写规则
+│   │   ├── phalcon-admin.conf              #Phalcon后台项目规则
+│   │   ├── phalcon-rewrite.conf            #Phalcon接口项目路由重写规则
+│   │   ├── phalcon.conf                    #Phalcon接口项目规则
+│   │   ├── php-fpm.conf                    #PHP-FPM参数配置
+│   │   └── vhost                           #Nginx虚拟机配置
+│   ├── php-fpm.conf                        #PHP-FPM配置文件（部分会覆盖php.ini配置）
+│   ├── php.ini                             #PHP默认配置文件
+│   └── redis.conf                          #Redis默认配置文件
+├── conf_use                                #开发人员本地服务配置副本
+├── copy_conf                               #服务配置拷贝脚本
+├── data                                    #服务数据目录
+│   ├── mysql
+│   └── redis
+├── docker-compose.yml                      #docker-compose启动配置
+├── exts                                    #PHP扩展包
+│   ├── install.sh                          #PHP扩展安装脚本
+├── log                                     #日志目录
+├── sources.list                            #Debian源目录
+└── www                                     #项目代码目录
     └── localhost
 ```
 
 ## 快速使用
-1. 本地需要安装`docker`和`docker-compose`，教程参考[http://https://docs.docker.com/engine/installation/](官方安装指南)
+1. 本地需要安装`docker`和`docker-compose`，教程参考[官方文档](http://https://docs.docker.com/engine/installation/)。
 2. 启动
 
     ```
@@ -57,6 +57,7 @@
 ## 切换PHP版本
 1. 确认`docker-compose.yml`配置中已经将PHP`php56`,`php72`已经开启
 2. 修改`conf_use/nginx/php-fpm.conf`中`fastcgi_pass`参数
+
 例如，示例的localhost用的是PHP7.2
 ```text
 fastcgi_pass  php72:9000;
@@ -71,7 +72,7 @@ docker exec -it docker-lnmp_nginx_1 nginx -s reload
 ```
 
 ## 新建站点
-1. 在`conf_use/nginx/vhost`目下添加你的站点配置
+1. 在`conf_use/nginx/vhost`目录下添加你的站点配置
 例如：
 ```text
 server {
@@ -106,6 +107,7 @@ docker exec -it docker-lnmp_nginx_1 nginx -s reload
 
 ## 添加快捷键
 在开发的时候，我们可能经常使用docker exec -it切换到容器中或者重启Nginx，把常用的做成命令别名是个省事的方法。
+
 Mac电脑打开~/.bash_profile,在最后添加一下命令别名
 ```text
 alias drnginx='docker exec -it docker-lnmp_nginx_1 nginx -s reload'
@@ -115,7 +117,7 @@ alias dcphp56='docker exec -it dnmp_php56_1 /bin/bash'
 alias dcmysql='docker exec -it dnmp_mysql_1 /bin/bash'
 alias dcredis='docker exec -it dnmp_redis_1 /bin/bash'
 ```
-在执行，就可以快操作了
+在执行以下命令
 ```text
 source ~/.bash_profile
 yanghui@yanghuideMacBook-Pro:~$     dcphp56
@@ -128,13 +130,15 @@ docker restart {容器ID}
 ```
 #### 2、PHP安装新的扩展
 扩展有两种方式安装：源码编译和PECL安装
+
 1. 通过PECL安装
 例如安装`memcached`扩展，在`Dockerfile-php`配置安装扩展命令后面加下如下参数
 ```text
-    && pecl install memcached-2.2.0 \
-    && docker-php-ext-enable memcached
+&& pecl install memcached-2.2.0 \
+&& docker-php-ext-enable memcached
 ```
 2. 通过源码编译安装
+
 例如安装`redis`扩展，下载源码放置在`exts`目录，添加编译命令到`install.sh`文件
 ```text
 cd /tmp/exts \
@@ -154,4 +158,4 @@ ports:
   - "443:443"
   - "8200-9000:8200-9000"
 ```
-[https://docs.docker.com/compose/compose-file/#ports](官方文档)
+端口设置[官方文档](https://docs.docker.com/compose/compose-file/#ports)
