@@ -102,27 +102,29 @@ server {
 ```
 3. 重启Nginx
 ```
-docker exec -it docker-lnmp_nginx_1 nginx -s reload
+    docker exec -it docker-lnmp_nginx_1 nginx -s reload
 ```
 
 ## 添加快捷键
 在开发的时候，我们可能经常使用docker exec -it切换到容器中或者重启Nginx，把常用的做成命令别名是个省事的方法。
 
 Mac电脑打开~/.bash_profile,在最后添加一下命令别名
-```
-alias drnginx='docker exec -it docker-lnmp_nginx_1 nginx -s reload'
-alias dcnginx='docker exec -it dnmp_nginx_1 /bin/sh'
-alias dcphp72='docker exec -it dnmp_php72_1 /bin/bash'
-alias dcphp56='docker exec -it dnmp_php56_1 /bin/bash'
-alias dcmysql='docker exec -it dnmp_mysql_1 /bin/bash'
-alias dcredis='docker exec -it dnmp_redis_1 /bin/bash'
-```
+
+    alias drnginx='docker exec -it docker-lnmp_nginx_1 nginx -s reload'
+    alias dcnginx='docker exec -it dnmp_nginx_1 /bin/sh'
+    alias dcphp72='docker exec -it dnmp_php72_1 /bin/bash'
+    alias dcphp56='docker exec -it dnmp_php56_1 /bin/bash'
+    alias dcmysql='docker exec -it dnmp_mysql_1 /bin/bash'
+    alias dcredis='docker exec -it dnmp_redis_1 /bin/bash'
+    
+   
 在执行以下命令
-```
-source ~/.bash_profile
-yanghui@yanghuideMacBook-Pro:~$     dcphp56
-root@7da24dca11c5:/var/www/html#
-```
+
+    
+    source ~/.bash_profile
+    yanghui@yanghuideMacBook-Pro:~$     dcphp56
+    root@7da24dca11c5:/var/www/html#
+    
 ## 其他问题
 #### 1、PHP-FPM重启通过重启容器来实现
 ```
