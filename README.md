@@ -24,15 +24,19 @@
 │   │   ├── phalcon.conf                    #Phalcon接口项目规则
 │   │   ├── php-fpm.conf                    #PHP-FPM参数配置
 │   │   └── vhost                           #Nginx虚拟机配置
-│   ├── php-fpm.conf                        #PHP-FPM配置文件（部分会覆盖php.ini配置）
-│   ├── php.ini                             #PHP默认配置文件
+│   ├── php                                 #PHP相关配置
+│   │   ├── php-fpm-56.conf                 #PHP-FPM配置文件
+│   │   ├── php-fpm-72.conf                  
+│   │   ├── php-56.ini                      #php.ini配置
+│   │   └── php-72.ini                               
 │   └── redis.conf                          #Redis默认配置文件
 ├── conf_use                                #开发人员本地服务配置副本
 ├── copy_conf                               #服务配置拷贝脚本
 ├── data                                    #服务数据目录
 │   ├── mysql
 │   └── redis
-├── docker-compose.yml                      #docker-compose启动配置
+├── docker-compose.yml                      #后端docker-compose启动配置
+├── docker-compose-f.yml                    #前端docker-compose启动配置
 ├── exts                                    #PHP扩展包
 │   ├── install.sh                          #PHP扩展安装脚本
 ├── log                                     #日志目录
@@ -50,6 +54,7 @@
     # 本地使用conf副本，根据自身情况修改conf_use目录配置，不会提交到Git
     $ chmod +x copy_conf
     $ ./copy_conf
+    # 后端开发使用该配置，启动，前端使用docker-compose -f docker-compose-f.yml up启动
     $ docker-compose up
     ```
 3. 然后在浏览器中访问[http://localhost](http://localhost)
