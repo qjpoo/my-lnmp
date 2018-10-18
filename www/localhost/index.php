@@ -7,4 +7,4 @@
  * @createtime 2018/10/16 上午11:00
  * @copyright Copyright (c) 深圳市美约时代. (http://www.meiyue.me)
  */
-echo phpinfo();
+var_dump(date("Y-m-d H:i:s"));
