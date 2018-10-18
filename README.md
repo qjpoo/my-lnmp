@@ -4,10 +4,12 @@
 ## 特性
 1. 支持支持**多版本PHP**共存，可任意切换（PHP5.6、PHP7.2)
 2. 集中管理Nginx,PHP、Mysql、Redis配置文件
-3. 集中管理Nginx,PHP、Mysql日志文件
-4. 优化Nginx配置参数管理
-5. 默认安装了Phalcon,Swoole,Redis,Xdebug项目依赖扩展
-6. 支持**HTTPS和HTTP/2**
+3. 集中管理容器Hosts文件
+4. 集中管理Nginx,PHP、Mysql日志文件
+5. 优化Nginx配置参数管理
+6. 默认安装了Phalcon,Swoole,Redis,Xdebug项目依赖扩展
+7. 支持**HTTPS和HTTP/2**
+8. Docker容器可视化管理
 
 ## 项目结构
 ```
@@ -32,6 +34,7 @@
 │   └── redis.conf                          #Redis默认配置文件
 ├── conf_use                                #开发人员本地服务配置副本
 ├── copy_conf                               #服务配置拷贝脚本
+├── doc                                     #项目文档
 ├── data                                    #服务数据目录
 │   ├── mysql
 │   └── redis
@@ -40,7 +43,7 @@
 ├── exts                                    #PHP扩展包
 │   ├── install.sh                          #PHP扩展安装脚本
 ├── log                                     #日志目录
-├── sources.list                            #Debian源目录
+├── sources                                 #Debian源目录
 └── www                                     #项目代码目录
     └── localhost
 ```
@@ -131,20 +134,30 @@ Mac电脑打开~/.bash_profile,在最后添加一下命令别名
     alias dcphp56='docker exec -it docker-lnmp_php56_1 /bin/bash'
     alias dcmysql='docker exec -it docker-lnmp_mysql_1 /bin/bash'
     alias dcredis='docker exec -it docker-lnmp_redis_1 /bin/bash'
-    
-   
+
 在执行以下命令
     
-    source ~/.bash_profile
-    yanghui@yanghuideMacBook-Pro:~$     dcphp56
+    ~$ source ~/.bash_profile
+    ~$ dcphp56
     root@7da24dca11c5:/var/www/html#
-    
+
+## Portainer使用
+Portainer是一个开源、轻量级Docker管理用户界面，基于Docker API，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、事件日志显示、容器控制台操作、Swarm集群和服务等集中管理和操作、登录用户管理和控制等功能。功能十分全面，基本能满足中小型单位对容器管理的全部需求。
+
+1. 设置账号密码，访问[http://localhost:9001](http://localhost:9001),端口在docker-compose文件修改
+![登陆](./doc/portaniner-1.png)
+2. 单机版本选择“Local"，点击Connect即可连接到本地docker，如下图
+![选择容器](./doc/portaniner-2.png)
+注意：从上图可以看出，有提示需要挂载本地 /var/run/docker.socker与容器内的/var/run/docker.socker连接。因此，在启动时必须指定该挂载文件
+3. 进入后可以对容器、镜像、网络、数据卷等进行管理，如下图：
+![面版](./doc/portaniner-3.png)
+4. 点击`Containes`可以管理所有容器
+![面版](./doc/portaniner-4.png)
+
 ## 其他问题
 #### 1、PHP-FPM重启通过重启容器来实现
 
-```
-docker restart {容器ID}
-```
+    docker restart {容器ID}
 
 #### 2、PHP安装新的扩展
 扩展有两种方式安装：源码编译和PECL安装
@@ -178,16 +191,19 @@ docker-compose build
 
 ```
 ports:
-  - "80:80"
-  - "443:443"
   - "8200-9000:8200-9000"
 ```
 
 端口设置[官方文档](https://docs.docker.com/compose/compose-file/#ports)
 
 #### 4、配置Docker加速器
-阿里云加速器：每个人有对应的加速地址，访问 https://dev.aliyun.com ->【管理中心】-> 【DockerHub 镜像站点】配置加速器
+为了永久性保留更改，修改`/etc/docker/daemon.json`文件并添加上`registry-mirrors`键值。
 
-DaoCloud 加速器：http://guide.daocloud.io/dcs/daocloud-9153151.html
+    {
+      "registry-mirrors": ["https://registry.docker-cn.com"]
+    }
 
-腾讯云加速器：https://www.qcloud.com/document/product/457/7207
+其他的加速器：阿里云加速器、DaoCloud、腾讯云加速器 
+
+#### 5、PHP项目更新Composer依赖
+如果本地宿主机没有安装PHP以及Composer，可以通过进入PHP容器进行Composer依赖更新。

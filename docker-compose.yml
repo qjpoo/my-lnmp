@@ -104,6 +104,15 @@ services:
       - net-redis
     ports:
       - "6379:6379"
+
+  portainer:
+    image: portainer/portainer:latest
+    ports:
+      - "9001:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:cached
+      - ./data/portainer/:/data:cached
+      
 networks:
   net-php72:
   net-php56:
