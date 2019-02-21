@@ -16,12 +16,8 @@ use Illuminate\Support\Facades\Storage;
 
 class UploadService extends BaseService
 {
-    public function image()
+    public function image($file)
     {
-        $drive = Storage::drive('oss');
-
-        $image = "11/22/33/7125_yangxiansen.jpg";
-
-        dump($drive->write("/test2.txt", "111222"));
+        $disk = Storage::drive();
     }
 }

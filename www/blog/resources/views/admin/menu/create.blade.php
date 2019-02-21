@@ -67,6 +67,7 @@
                             <label for="parentId" class="col-sm-2 control-label">属于菜单:</label>
                             <div class="col-sm-4">
                                 <select class="select2 form-control" name="parentId">
+                                    <option value="0">/</option>
                                 </select>
                             </div>
                         </div>

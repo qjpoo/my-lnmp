@@ -17,7 +17,7 @@ services:
       - ./conf_use/nginx/php-fpm.conf:/etc/nginx/php-fpm.conf:ro
       - ./conf_use/hosts:/etc/hosts:rw
       - ./log/:/var/log/lnmp/:rw
-      - ./conf_use/localtime:/etc/localtime:rw
+      # - ./conf_use/localtime:/etc/localtime:rw
     restart: always
     networks:
       - net-php56
@@ -86,12 +86,14 @@ services:
   mysql:
     image: mysql:8.0
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - ./conf_use/mysql.conf:/etc/mysql/conf.d/mysql.cnf:ro
       - ./data/mysql/:/var/lib/mysql/:rw
+      - ./data/mysql/mysql_sock:/var/run/mysqld
       - ./conf_use/localtime:/etc/localtime:rw
     restart: always
+    command: --default-authentication-plugin=mysql_native_password #这行代码解决无法访问的问题
     networks:
       - net-mysql
     environment:
@@ -118,7 +120,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:cached
       - ./data/portainer/:/data:cached
       - ./conf_use/localtime:/etc/localtime:rw
-      
+
 networks:
   net-php72:
   net-php56:

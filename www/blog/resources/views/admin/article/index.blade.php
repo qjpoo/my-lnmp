@@ -14,7 +14,7 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        <a href="{{ urlPath('menu/create') }}" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>
+                        <a href="{{ urlPath('article/create') }}" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>
                             新增</a>
                     </h3>
                     <div class="box-tools">

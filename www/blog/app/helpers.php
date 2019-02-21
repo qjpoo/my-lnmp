@@ -57,4 +57,21 @@ if ( !function_exists('getCurrentRoute') ) {
     }
 }
 
+/**
+ *  url add redirect http
+ */
+if ( !function_exists('redirectPath') ) {
+    function redirectPath($to = null , $status = 302 , $headers = [] , $secure = null)
+    {
+        if ( is_null($to) ) {
+            return app('redirect');
+        }
+
+        $prefix = getPrefix();
+        $to = $prefix . '/' . $to;
+
+        return app('redirect')->to($to , $status , $headers , $secure);
+    }
+}
+
 

@@ -12,5 +12,6 @@
 Route::namespace('Admin')->prefix('admin')->group(function () {
     Route::get('/' , 'IndexController@index');
     Route::resource('menu', 'MenuController');
-    Route::get('/system' , 'SystemController@index');
+    Route::resource('/system' , 'SystemController');
+    Route::resource('/article' , 'ArticleController');
 });

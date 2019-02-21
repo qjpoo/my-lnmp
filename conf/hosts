@@ -1,5 +1,6 @@
 127.0.0.1	localhost
 127.0.0.1	localhost2
+127.0.0.1   blog.costalong.com
 
 #common
 10.10.1.220 sunspear2

@@ -30,7 +30,7 @@ services:
          SOURCE_LIST: jessie
          XDEBUG_VERSION: 2.5.5
          SWOOLE_VERSION: 2.0.11
-         PAHCLON_VERSION: 3.4.0
+         PAHCLON_VERSION: 3.3.2
          REDIS_VERSION: 4.1.1
          SUPPORT_MCRYPT: "true"
          BUILT_IN_OPCACHE: "true"

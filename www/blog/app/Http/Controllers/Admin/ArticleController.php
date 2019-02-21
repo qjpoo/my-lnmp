@@ -20,4 +20,11 @@ class ArticleController extends BaseController
 
         return $this->view('index' , compact('data' , $data));
     }
+
+    public function create()
+    {
+        $data['title'] = '文章添加';
+
+        return $this->view('create' , compact('data' , $data));
+    }
 }

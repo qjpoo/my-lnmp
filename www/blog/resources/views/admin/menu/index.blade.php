@@ -14,7 +14,8 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        <a href="{{ urlPath('menu/create') }}" class="btn btn-sm btn-primary"><i class="fa fa-save"></i> 新增</a>
+                        <a href="{{ urlPath('menu/create') }}" class="btn btn-sm btn-primary"><i class="fa fa-save"></i>
+                            新增</a>
                     </h3>
                     <div class="box-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
@@ -30,65 +31,47 @@
                 <div class="box-body">
                     <table class="table table-bordered">
                         <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Task</th>
-                            <th>Progress</th>
-                            <th style="width: 40px">Label</th>
+                            <th style="width: 60px">编号</th>
+                            <th>名字</th>
+                            <th>链接</th>
+                            <th>排序</th>
+                            <th>是否为外链</th>
+                            <th>操作</th>
                         </tr>
-                        <tr>
-                            <td>1.</td>
-                            <td>Update software</td>
-                            <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge bg-red">55%</span></td>
-                        </tr>
-                        <tr>
-                            <td>2.</td>
-                            <td>Clean database</td>
-                            <td>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge bg-yellow">70%</span></td>
-                        </tr>
-                        <tr>
-                            <td>3.</td>
-                            <td>Cron job running</td>
-                            <td>
-                                <div class="progress progress-xs progress-striped active">
-                                    <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge bg-light-blue">30%</span></td>
-                        </tr>
-                        <tr>
-                            <td>4.</td>
-                            <td>Fix and squish bugs</td>
-                            <td>
-                                <div class="progress progress-xs progress-striped active">
-                                    <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                                </div>
-                            </td>
-                            <td><span class="badge bg-green">90%</span></td>
-                        </tr>
+
+
+                        @foreach ($data['list'] as $menu)
+                            <tr>
+                                <td>{{ $menu->id  }}</td>
+                                <td>{{ $menu->name }}</td>
+                                <td>{{ $menu->link }}</td>
+                                <td>{{ $menu->sort }}</td>
+                                <td>{{ $menu->is_external_link }}</td>
+                                <td>
+                                    <a href="{{ urlPath('menu/'.$menu->id.'/edit') }}"
+                                       class="btn btn-sm btn-primary">
+                                        <i class="fa fa-edit"></i>
+                                        编辑</a>
+                                    <a class="btn btn-sm btn-danger" data-toggle="modal"
+                                       data-target="#myModal" onclick="values({{ $menu->id }})">
+                                        <i class="fa fa-trash-o"></i>删除</a>
+                                </td>
+                            </tr>
+                        @endforeach
+
                     </table>
                 </div>
+
                 <!-- /.box-body -->
-                <div class="box-footer clearfix">
-                    <ul class="pagination pagination-sm no-margin pull-right">
-                        <li><a href="#">&laquo;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">&raquo;</a></li>
-                    </ul>
-                </div>
+                @include('admin.crumbs.pages',['list'=>$data['list'] ])
             </div>
             <!-- /.box -->
         </div>
     </div>
+    @include('admin.crumbs.delete',['url'=> urlPath('menu')])
 @endsection
+@push('scripts')
+    <script src=" {{ asset('/static/dist/js/index.js') }}"></script>
+    <script>
+    </script>
+@endpush

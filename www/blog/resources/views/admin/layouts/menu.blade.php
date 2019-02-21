@@ -47,7 +47,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ urlPath('/')  }}"><i class="fa fa-columns"></i> 文章分类</a></li>
-                    <li><a href="{{ urlPath('/')  }}"><i class="fa fa-file-text-o"></i> 文章列表</a></li>
+                    <li><a href="{{ urlPath('article')  }}"><i class="fa fa-file-text-o"></i> 文章列表</a></li>
                 </ul>
             </li>
             <li class="treeview">
