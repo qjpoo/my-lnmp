@@ -1,3 +1,7 @@
+# Tips
+1.在原作者上面修改了source源为中科大的，不然在打包镜像会出现找不到依赖包的问题，把apt-get换成了aptitude   
+2.去掉了php5.6，因为libfreetype6-dev新版本兼容性的问题，会出现freetype-config not found   
+
 ## 简介
 本项目是基于Docker-LNMP的一键开发环境安装。便于前后端快速部署环境，更加专注业务功能开发，减少环境配置带来的困扰。
 
